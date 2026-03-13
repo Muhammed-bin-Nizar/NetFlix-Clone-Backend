@@ -1,18 +1,29 @@
 import pool from "../db/index.js";
 
 
-const getByIdAndAddComment = async(data)=>{
-    const {content, owner, video} = data;
+const getByIdAndAddComment = async (data) => {
+  const { content, owner, video } = data;
 
-    const [result] = await pool.query(`INSERT INTO comments(content,owner,video) VALUES(?,?,?)`,[content,owner,video]);
+  const [result] = await pool.query(
+    `INSERT INTO comments(content, owner, video) VALUES(?, ?, ?)`,
+    [content, owner, video]
+  );
 
-    return result;
-    
-}
+  // Fetch the full comment row (includes createdAt, username, avatar, etc.)
+  const [rows] = await pool.query(
+    `SELECT comments.*, users.username, users.avatar 
+     FROM comments 
+     JOIN users ON comments.owner = users.id 
+     WHERE comments.id = ?`,
+    [result.insertId]
+  );
+
+  return rows[0]; // Return full comment with createdAt
+};
 
 const getAllCommentsByVideoId = async(videoId)=>{
     const [result] = await pool.query( `SELECT 
-        comments.id,comments.content,comments.createdAt,users.id AS user_id,users.username,users.avatar
+        comments.id,comments.content,comments.createdAt,users.id AS user_id,users.username,users.avatar as avatar
         FROM comments INNER JOIN users
         on comments.owner = users.id
         WHERE video = ?`,[videoId])

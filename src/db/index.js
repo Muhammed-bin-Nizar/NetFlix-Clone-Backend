@@ -14,7 +14,9 @@ const pool = mysql.createPool({
     database: "netflix",
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    timezone:'+00:00' // to store craeted at as ist time zone in mysql database
+    
 })
 
 

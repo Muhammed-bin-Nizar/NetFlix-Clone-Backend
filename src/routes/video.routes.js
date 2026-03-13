@@ -13,9 +13,13 @@ router.route("/video").post(validateJWT,
         { name: "thumbnail", maxCount: 1 }
     ]),
     uploadVideo)
+
+    
 router.route("/").get(getAllVideos)
 router.route("/:id").get(getVideo)
 router.route("/:id/view").post(increamentViewCount)
+
+
 
 
 export default router
