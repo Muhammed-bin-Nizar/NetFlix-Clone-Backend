@@ -11,10 +11,12 @@ const createPlayList = asyncHandler(async (req, res) => {
         owner_id: req.user.id
     })
 
+    console.log(playlist)
+
     return res
         .status(201)
         .json(
-            new ApiResponse(201, {}, "Playlist created")
+            new ApiResponse(201, { id: playlist.insertId, name:"New Playlist-Hrd_Name" }, "Playlist created")
         )
 })
 
@@ -22,10 +24,14 @@ const createPlayList = asyncHandler(async (req, res) => {
 const addVideoToPlayList = asyncHandler(async (req, res) => {
     const { videoId, playlistId } = req.params
 
+
+
     const addVideo = await addVideoToPlaylistInDb({
         videoId,
         playlistId
     })
+
+    console.log("videoadded----------",addVideo)
 
     return res
         .status(201)
@@ -80,12 +86,16 @@ const deletePlaylist = asyncHandler(async(req,res)=>{
 
 })
 
-// const changeVideoPosition = asyncHandler(async(req,res)=>{
-//     const {playlistId,videoId} = req.params
-//     const {newPosition} = req.body
+const changeVideoPosition = asyncHandler(async(req,res)=>{
+    const {playlistId,videoId} = req.params
+    const {newPosition} = req.body
 
 
-// })
+})
+
+const getUserPlaylists = asyncHandler(async(req,res)=>{
+    
+})
 
 
 export {

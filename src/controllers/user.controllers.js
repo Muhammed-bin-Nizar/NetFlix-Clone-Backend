@@ -36,6 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     //file uploading feature
     const avatarLocalPath = req.file?.path
+    
     const avatar = avatarLocalPath? await uploadOnCloudinary(avatarLocalPath): null
 
     const user = await createUser({

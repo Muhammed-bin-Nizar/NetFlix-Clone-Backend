@@ -5,9 +5,11 @@ import { ApiError } from "../utils/ApiError.js";
 
 const createUser = async (userData) => {
     const { username, email, fullName, password, avatar } = userData;
+
     const [result] = await pool.query(`
         INSERT INTO users(username,email,fullName,password,avatar) values(?,?,?,?,?)`, [username, email, fullName, password, avatar])
     console.log(result)
+    
     return result.insertId;
 
 }
