@@ -4,7 +4,8 @@ import {
     addVideoToPlayList,
     createPlayList,
     getPlaylistVideos,
-    removeVideoFromPlaylist
+    removeVideoFromPlaylist,
+    getUserPlaylists
 } from "../controllers/playlist.controllers.js";
 
 
@@ -12,6 +13,9 @@ const router = Router()
 
 router.route("/")
     .post(validateJWT, createPlayList)
+
+router.route("/:userId")
+    .get(validateJWT,getUserPlaylists)//validate jwt can be removed
 
 router.route("/:playlistId/video/:videoId")
             .post(validateJWT, addVideoToPlayList)

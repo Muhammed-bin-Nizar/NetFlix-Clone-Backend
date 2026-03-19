@@ -1,4 +1,4 @@
-import { addVideoToPlaylistInDb, createNewPlaylistInDb, deletePlaylistFromDb, findByIdAndGetAllPlaylistVideos, getByIdAndRemoveVideo } from "../model/playlist.model.js";
+import { addVideoToPlaylistInDb, createNewPlaylistInDb, deletePlaylistFromDb, findByIdAndGetAllPlaylistVideos, getByIdAndRemoveVideo, getUserPlaylistsFromDb } from "../model/playlist.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
@@ -94,7 +94,18 @@ const changeVideoPosition = asyncHandler(async(req,res)=>{
 })
 
 const getUserPlaylists = asyncHandler(async(req,res)=>{
-    
+    const {userId} = req.params
+    console.log(userId)
+    const playlists = await getUserPlaylistsFromDb(userId)
+
+    console.log(playlists)
+
+    return res
+            .status(201)
+            .json(
+                new ApiResponse(201,playlists,"Fetched all user playlists")
+            )
+
 })
 
 
@@ -103,5 +114,6 @@ export {
     addVideoToPlayList,
     getPlaylistVideos,
     removeVideoFromPlaylist,
-    deletePlaylist
+    deletePlaylist,
+    getUserPlaylists
 }

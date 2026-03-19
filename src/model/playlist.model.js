@@ -99,6 +99,15 @@ const deletePlaylistFromDb = async (data) =>{
 
 }
 
+const getUserPlaylistsFromDb = async(userId)=>{
+    
+
+    const [result] = await pool.query(`SELECT * FROM playlists WHERE owner_id=?`,[userId]) 
+    
+    console.log(result)
+    return result
+}
+
 
 
 
@@ -107,7 +116,8 @@ export {
     addVideoToPlaylistInDb,
     findByIdAndGetAllPlaylistVideos,
     getByIdAndRemoveVideo,
-    deletePlaylistFromDb
+    deletePlaylistFromDb,
+    getUserPlaylistsFromDb
 }
 
 
