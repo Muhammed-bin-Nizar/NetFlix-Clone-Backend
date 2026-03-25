@@ -116,7 +116,22 @@ const deleteVideoFromDB = async (videoId) => {
     return result.affectedRows; // returns 0 if no row was found, 1 if deleted
 };
 
-export { uploadVideoToDB, getVideosFromDB, getVideoById,increamentVideoViewInDB ,updateVideoInDB,deleteVideoFromDB}
+
+//for recomentation system
+const getLatestVideos = async (videoId) => {
+  const [videos] = await pool.query(
+    `SELECT * FROM videos
+     WHERE isPublished = TRUE
+     AND id != ?
+     ORDER BY createdAt DESC
+     LIMIT 10`,
+    [videoId]
+  );
+
+  return videos;
+}
+
+export { uploadVideoToDB, getVideosFromDB, getVideoById,increamentVideoViewInDB ,updateVideoInDB,deleteVideoFromDB,getLatestVideos}
 
 
 

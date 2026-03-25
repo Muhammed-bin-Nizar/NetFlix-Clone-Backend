@@ -1,4 +1,4 @@
-import { deleteVideoFromDB, getVideoById, getVideosFromDB,  increamentVideoViewInDB, updateVideoInDB, uploadVideoToDB } from "../model/video.models.js";
+import { deleteVideoFromDB, getLatestVideos, getVideoById, getVideosFromDB,  increamentVideoViewInDB, updateVideoInDB, uploadVideoToDB } from "../model/video.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -165,11 +165,37 @@ const togglePublishStatus = asyncHandler(async(req,res)=>{
 })
 
 
+const getRecommendedVideos = asyncHandler(async (req, res) => {
+    const { id } = req.params;          // current video id
+
+    if (!id) {
+        throw new ApiError(400, "Video id is required");
+    }
+
+    const videos = await getLatestVideos(id);
+
+    if (!videos) {
+        throw new ApiError(500, "Unable to fetch recommended videos");
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                videos,
+                "Recommended videos fetched successfully"
+            )
+        );
+});
+
+
 export {
     updateVideo,
     uploadVideo,
     getAllVideos,
     getVideo,
     increamentViewCount,
-    deleteVideo
+    deleteVideo,
+    getRecommendedVideos
 }
