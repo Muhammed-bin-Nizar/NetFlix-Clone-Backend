@@ -95,8 +95,7 @@ export {
 
 
 
-// const createTable = async () => {
-//     const createTableQuary = `CREATE TABLE users (
+//CREATE TABLE users (
 //   id INT PRIMARY KEY AUTO_INCREMENT,
 //   email VARCHAR(255) UNIQUE NOT NULL,
 //   username VARCHAR(100) UNIQUE NOT NULL,
@@ -106,11 +105,4 @@ export {
 //   refreshToken TEXT,
 //   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //   updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-// );`
-
-//     await connection.query(createTableQuary)
-//     console.log("Table created")
-//     await connection.end()
-// }
-
-// createTable()
+// );

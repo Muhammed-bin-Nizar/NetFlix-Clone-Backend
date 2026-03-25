@@ -39,7 +39,7 @@ export {getByIdAndAddComment,getAllCommentsByVideoId}
 
 
 
-// await pool.query(`CREATE TABLE comments (
+//CREATE TABLE comments (
 //     id INT AUTO_INCREMENT PRIMARY KEY,
 //     content TEXT NOT NULL,
 
@@ -62,4 +62,3 @@ export {getByIdAndAddComment,getAllCommentsByVideoId}
 //     INDEX idx_comments_owner (owner),
 //     INDEX idx_comments_video (video)
 // ) ENGINE=InnoDB;
-// `)

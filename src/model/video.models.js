@@ -145,8 +145,7 @@ export { uploadVideoToDB, getVideosFromDB, getVideoById,increamentVideoViewInDB 
 
 
 
-// const createVideoTableQuary = async()=>{
-//     const Executablequery = `CREATE TABLE videos (
+//CREATE TABLE videos (
 //     id INT AUTO_INCREMENT PRIMARY KEY,
 //     title VARCHAR(255) NOT NULL,
 //     description TEXT,
@@ -174,10 +173,4 @@ export { uploadVideoToDB, getVideosFromDB, getVideoById,increamentVideoViewInDB 
 //         FOREIGN KEY (owner)
 //         REFERENCES users(id)
 //         ON DELETE CASCADE
-// ) ENGINE=InnoDB;`
-
-//     const result = await pool.query(Executablequery)
-//     return result
-// }
-
-// console.log(createVideoTableQuary())
+// ) ENGINE=InnoDB;
