@@ -37,7 +37,7 @@ export {
 
 
 
-// CREATE TABLE likes (\
+// CREATE TABLE likes (
 //     id INT AUTO_INCREMENT,
 //     userId INT NOT NULL,
 //     videoId INT NOT NULL,
