@@ -21,6 +21,7 @@ const pool = mysql.createPool({
 })
 
 
+
 console.log("MySql connected Successfully")
 
 export default pool;

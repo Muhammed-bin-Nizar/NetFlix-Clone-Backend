@@ -73,7 +73,6 @@ const loginUser = asyncHandler(async (req, res) => {
     if (!password) {
         throw new ApiError(400, "Password is required")
     }
-
     const isPasswordValid = await bcryptjs.compare(password, user[0].password)
 
 
@@ -82,12 +81,12 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 
     const { accessToken, refreshToken } = generateAccessAndRefreshToken(user[0])
-    console.log(accessToken, refreshToken)
+    // console.log(accessToken, refreshToken)
 
 
     const loggedInUser = await findById(user[0].id)
 
-    console.log(loggedInUser)
+    // console.log(loggedInUser)
 
 
     if (!loggedInUser) {
@@ -122,7 +121,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 })
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-    console.log(req.user)
+    // console.log(req.user)
     return res
         .status(201)
         .json(
@@ -210,7 +209,7 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     }
 
     const updatedUser = await findByIdAndUpdateUserDetails(req.user.id, { username, fullName, email })
-    console.log(updatedUser)
+    // console.log(updatedUser)
 
     if (!updatedUser) {
         throw new ApiError(500, "unable to update user details")

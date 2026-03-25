@@ -42,7 +42,7 @@ const addVideoToPlayList = asyncHandler(async (req, res) => {
 
 const getPlaylistVideos = asyncHandler(async(req,res)=>{
     const {playlistId} = req.params
-
+    console.log(playlistId)
     const playlistVideos = await findByIdAndGetAllPlaylistVideos(playlistId)
 
     return res
@@ -94,9 +94,8 @@ const changeVideoPosition = asyncHandler(async(req,res)=>{
 })
 
 const getUserPlaylists = asyncHandler(async(req,res)=>{
-    const {userId} = req.params
-    console.log(userId)
-    const playlists = await getUserPlaylistsFromDb(userId)
+    // const {userId} = req.params
+    const playlists = await getUserPlaylistsFromDb(req.user.id)
 
     console.log(playlists)
 

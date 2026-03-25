@@ -13,6 +13,7 @@ const getByIdAndRemoveLike = async (data) => {
 
 const checkIsLikedVideo = async (data) => {
     const [result] = await pool.query(`SELECT * FROM likes WHERE videoId=? AND userId=?`, [data.videoId, data.userId])
+    console.log(result)
     return result.length > 0;
 }
 

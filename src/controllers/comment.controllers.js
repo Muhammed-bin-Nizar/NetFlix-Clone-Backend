@@ -26,7 +26,7 @@ const getAllComments = asyncHandler(async(req,res)=>{
 
 
     const comments = await getAllCommentsByVideoId(id)
-    console.log(comments)
+    // console.log(comments)
 
     return res
             .status(201)

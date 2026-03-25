@@ -13,9 +13,10 @@ const router = Router()
 
 router.route("/")
     .post(validateJWT, createPlayList)
+    .get(validateJWT,getUserPlaylists)
 
-router.route("/:userId")
-    .get(validateJWT,getUserPlaylists)//validate jwt can be removed
+// router.route("/:userId")
+//     .get(getUserPlaylists)//validate jwt can be removed
 
 router.route("/:playlistId/video/:videoId")
             .post(validateJWT, addVideoToPlayList)

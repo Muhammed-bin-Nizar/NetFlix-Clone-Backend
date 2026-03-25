@@ -1,4 +1,4 @@
-import { getVideoById, getVideosFromDB,  increamentVideoViewInDB, uploadVideoToDB } from "../model/video.models.js";
+import { deleteVideoFromDB, getVideoById, getVideosFromDB,  increamentVideoViewInDB, updateVideoInDB, uploadVideoToDB } from "../model/video.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -62,7 +62,7 @@ const uploadVideo = asyncHandler(async (req,res)=>{
 
 const getAllVideos = asyncHandler(async(req,res)=>{
     const {page=1,limit=10,query} = req.query;
-    console.log(page,limit,query)
+    // console.log(page,limit,query)
 
     const videos = await getVideosFromDB({page,limit,query})
 
@@ -126,24 +126,39 @@ const updateVideo = asyncHandler(async(req,res)=>{
         throw new ApiError(400,"Please make any changes to update ")
     }
 
-    const updateData = {}
+    const updateData = {id}
 
     if(title.trim()) updateData.title = title
     if(description.trim()) updateData.description = description
 
-    const upadted = await updateVideoInDB({
-        id,
-        title,
-        description
-    })
+    // console.log(updateData)
 
-    console.log(upadted)
+    const upadted = await updateVideoInDB(updateData);
+
+    // console.log(upadted)
+
+    return res
+            .status(201)
+            .json(
+                new ApiResponse(201,upadted,"Video updated successfully")
+            )
 
  })
 
-const deleteVideo = asyncHandler(async(req,res)=>{
+const deleteVideo = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const deleted = await deleteVideoFromDB(id);
 
-})
+    if (!deleted) {
+        throw new ApiError(404, "Video not found"); // 404, not 500 — the DB didn't fail, the row just doesn't exist
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200, {}, "Video deleted successfully")
+        );
+});
 
 const togglePublishStatus = asyncHandler(async(req,res)=>{
 
@@ -155,5 +170,6 @@ export {
     uploadVideo,
     getAllVideos,
     getVideo,
-    increamentViewCount
+    increamentViewCount,
+    deleteVideo
 }

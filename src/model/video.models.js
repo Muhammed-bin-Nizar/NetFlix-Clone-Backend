@@ -47,7 +47,7 @@ const getVideosFromDB = async ({ page, limit, query }) => {
         `
         , [...values, parseInt(limit), parseInt(offset)])
 
-    console.log(results)
+    // console.log(results)
     return results
 }
 
@@ -59,6 +59,7 @@ const increamentVideoViewInDB = async(videoId)=>{
 
 const updateVideoInDB = async(videoData)=>{
      try {
+        const {id, title, description} = videoData
         // Build dynamic query based on provided fields
         const updates = [];
         const values = [];
@@ -110,7 +111,12 @@ const updateVideoInDB = async(videoData)=>{
 
 }
 
-export { uploadVideoToDB, getVideosFromDB, getVideoById,increamentVideoViewInDB }
+const deleteVideoFromDB = async (videoId) => {
+    const [result] = await pool.query(`DELETE FROM videos WHERE id=?`, [videoId]);
+    return result.affectedRows; // returns 0 if no row was found, 1 if deleted
+};
+
+export { uploadVideoToDB, getVideosFromDB, getVideoById,increamentVideoViewInDB ,updateVideoInDB,deleteVideoFromDB}
 
 
 
