@@ -8,7 +8,7 @@ const uploadVideoToDB = async (videoData) => {
     const [insertResult] = await pool.query(`INSERT INTO videos (title,description,thumbnail,videoFile,views,owner,isPublished,duration) VALUES (?,?,?,?,?,?,?,?)`, [title, description, thumbnail, videoFile, views, owner, isPublished, duration])
 
     if (!insertResult.insertId) {
-        return
+        return null
     }
 
     const [result] = await pool.query(`SELECT * FROM videos WHERE id =?`, [insertResult.insertId])
